@@ -1,0 +1,5 @@
+[2025-11-08 10:11:26] Exception in admin login: Unknown column 'email' in 'where clause'
+[2025-11-08 10:14:06] Exception in admin login: Unknown column 'email' in 'where clause'
+[2025-11-08 12:01:45] Exception in admin login: Unknown column 'email' in 'where clause'
+[2025-11-08 15:22:27] login failed - no user found for 'ranyoung279@gmail.com'
+[2025-11-08 15:22:40] login failed - wrong password for user_id=8
