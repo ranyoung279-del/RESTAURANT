@@ -29,8 +29,113 @@ final class Menu {
         $r = $stmt->get_result();
         return $r? $r->fetch_assoc() : null;
     }
-}
+    /** ===================== PHẦN KHUYẾN MÃI ===================== */
+    
+    /**
+     * Lấy thông tin món ăn kèm khuyến mãi
+     */
+    public static function getItemWithPromotion(int $menuItemId): ?array
+    {
+        $db = Db::conn();
+        $stmt = $db->prepare("SELECT * FROM menu_items WHERE id = ? AND is_available = 1");
+        if (!$stmt) return null;
+        
+        $stmt->bind_param("i", $menuItemId);
+        $stmt->execute();
+        $menuItem = $stmt->get_result()->fetch_assoc();
+        
+        if (!$menuItem) return null;
+        
+        // Tìm khuyến mãi áp dụng
+        $promotion = self::getApplicablePromotion($menuItemId);
+        
+        return self::calculatePriceWithPromotion($menuItem, $promotion);
+    }
 
+    /**
+     * Lấy tất cả món ăn kèm khuyến mãi
+     */
+    public static function getAllItemsWithPromotions(?string $category = null): array
+    {
+        $db = Db::conn();
+        $sql = "SELECT * FROM menu_items WHERE is_available = 1";
+        
+        if ($category) {
+            $sql .= " AND category = ?";
+            $stmt = $db->prepare($sql);
+            if (!$stmt) return [];
+            $stmt->bind_param("s", $category);
+        } else {
+            $stmt = $db->prepare($sql);
+            if (!$stmt) return [];
+        }
+        
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        $items = [];
+        while ($item = $result->fetch_assoc()) {
+            $promotion = self::getApplicablePromotion($item['id']);
+            $items[] = self::calculatePriceWithPromotion($item, $promotion);
+        }
+        
+        return $items;
+    }
+    
+    /**
+     * Tìm khuyến mãi áp dụng cho món ăn
+     */
+    private static function getApplicablePromotion(int $menuItemId): ?array
+    {
+        $db = Db::conn();
+        $now = date('Y-m-d H:i:s');
+        
+        $sql = "SELECT * FROM promotions 
+                WHERE active = 1 
+                AND start_at <= ? 
+                AND end_at >= ?
+                AND (apply_to_all = 1 
+                     OR FIND_IN_SET(?, apply_to_menu_ids))
+                ORDER BY discount_value DESC
+                LIMIT 1";
+        
+        $stmt = $db->prepare($sql);
+        if (!$stmt) return null;
+        
+        $stmt->bind_param("ssi", $now, $now, $menuItemId);
+        $stmt->execute();
+        
+        return $stmt->get_result()->fetch_assoc();
+    }
+    
+    /**
+     * Tính giá sau khuyến mãi
+     */
+    private static function calculatePriceWithPromotion(array $menuItem, ?array $promotion): array
+    {
+        $originalPrice = (float)$menuItem['price'];
+        $finalPrice = $originalPrice;
+        $discountAmount = 0;
+        
+        if ($promotion) {
+            if ($promotion['discount_type'] === 'percent') {
+                $discountAmount = ($originalPrice * $promotion['discount_value']) / 100;
+            } else {
+                $discountAmount = (float)$promotion['discount_value'];
+            }
+            $finalPrice = max(0, $originalPrice - $discountAmount);
+        }
+        
+        return [
+            'item' => $menuItem,
+            'promotion' => $promotion,
+            'original_price' => $originalPrice,
+            'discount_amount' => $discountAmount,
+            'final_price' => $finalPrice,
+            'has_promotion' => !empty($promotion)
+        ];
+    }
+}
 /** ===================== HOME (TRANG CHỦ) ===================== */
 final class Home {
     public static function one(): ?array {
@@ -205,10 +310,6 @@ final class PasswordReset {
 
 /** ===================== PROMOTION (KHUYẾN MÃI) ===================== */
 final class Promotion {
-    /* Cần có:
-       promotions(id,name,type('percent'|'fixed'),value,starts_at,ends_at,active)
-       promotion_items(promotion_id, menu_item_id)
-    */
     public static function priceForItem(int $itemId, float $basePrice): float {
         $sql =
           "SELECT p.type, p.value
@@ -234,4 +335,3 @@ final class Promotion {
         return round($price, 2);
     }
 }
-

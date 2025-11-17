@@ -8,7 +8,7 @@ use App\Auth;
 Auth::start();
 $auth = new AuthController();
 
-// Xử lý form
+// Xử lý form đăng nhập
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'login') {
     $email = trim($_POST['email'] ?? '');
     $pass  = $_POST['password'] ?? '';
@@ -44,19 +44,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'login
       <label>Email:</label>
       <input type="email" name="email" placeholder="Nhập email của bạn" required>
 
-         <label>Mật khẩu:</label>
-        <div style="position: relative;">
-          <input type="password" id="password" name="password" required
-                 style="width: 100%; box-sizing: border-box; padding-right: 40px;">
-          <button type="button" id="togglePassword"
-                  style="position:absolute; right:10px; top:50%; transform:translateY(-50%);
-                         background:none; border:none; cursor:pointer; font-size:18px; color:#333;">
-            👁
-          </button>
-        </div>
+      <label>Mật khẩu:</label>
+      <div style="position: relative;">
+        <input type="password" id="password" name="password" required
+               style="width: 100%; box-sizing: border-box; padding-right: 40px;">
+        <button type="button" id="togglePassword"
+                style="position:absolute; right:10px; top:50%; transform:translateY(-50%);
+                       background:none; border:none; cursor:pointer; font-size:18px; color:#333;">
+          👁
+        </button>
+      </div>
 
       <button type="submit">Đăng nhập</button>
     </form>
+
+    <p>
+      <a href="forgot_password.php" style="text-decoration:none; color:#007bff;">
+        Quên mật khẩu?
+      </a>
+    </p>
 
     <p>Chưa có tài khoản? <a href="registration.php">Đăng ký ngay</a></p>
   </div>

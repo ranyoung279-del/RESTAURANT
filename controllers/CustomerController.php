@@ -6,13 +6,6 @@ use App\Models\Customer;
 
 class CustomerController extends BaseController
 {
-    /**
-     * Đăng ký khách hàng mới.
-     * - Validate input
-     * - Check trùng email
-     * - Tạo tài khoản qua Model
-     * - Set session message để view hiển thị
-     */
     public function register(array $data): bool
     {
         Auth::start();

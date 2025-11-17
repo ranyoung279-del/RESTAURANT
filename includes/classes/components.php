@@ -62,6 +62,11 @@ class AdminSidebar {
                 'roles' => ['admin', 'staff']
             ],
             [
+            'label' => 'Quản lý khuyến mãi',
+                'href'  => 'promotion_manage.php',
+                'roles' => ['admin', 'staff']
+            ],
+            [
                 'label' => 'Quản lý thông tin',
                 'href'  => 'info.php',
                 'roles' => ['admin'] // chỉ admin

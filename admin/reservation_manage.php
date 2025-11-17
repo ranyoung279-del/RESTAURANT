@@ -29,13 +29,19 @@ $csrf = Csrf::token();
 </head>
 <body>
 
-<?php AdminLayout::header(); ?>
+<?php include 'header.php'; ?>
 
 <div class="admin-dashboard">
   <?php AdminLayout::sidebar(); ?>
 
   <main class="admin-overview">
-    <h2>📅 Danh sách đặt bàn</h2>
+    <h2>Danh sách đặt bàn</h2>
+    <div class="admin-page-header">
+    <a href="dashboard.php" class="admin-back-btn">
+        <span class="admin-back-btn-icon">←</span>
+        Quay lại
+    </a>
+</div>
 
     <?php if ($message): ?><div class="alert success"><?= htmlspecialchars($message) ?></div><?php endif; ?>
     <?php if ($error):   ?><div class="alert error"><?= htmlspecialchars($error)   ?></div><?php endif; ?>

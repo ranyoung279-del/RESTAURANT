@@ -8,7 +8,6 @@ $home  = $data['home'];
 $deals = $data['deals'];
 
 ?>
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>

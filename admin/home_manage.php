@@ -30,23 +30,26 @@ $csrf = Csrf::token();
   <style>.thumb{width:90px;border-radius:6px;border:1px solid #e5e7eb;margin:2px}</style>
 </head>
 <body>
-
-<?php AdminLayout::header(); ?>
+<?php include 'header.php'; ?>
 
 <div class="admin-dashboard">
   <?php AdminLayout::sidebar(); ?>
 
   <main class="admin-overview">
     <div style="display:flex;justify-content:space-between;align-items:center;">
-      <h2> Nội dung trang chủ</h2>
-      <a href="info.php" class="btn" style="background:#1a1f28;color:#fff;">Quay lại</a>
-    </div>
+      <h2>Nội dung trang chủ</h2>
+      <div class="admin-page-header">
 
+    <a href="dashboard.php" class="admin-back-btn">
+        <span class="admin-back-btn-icon">←</span>
+        Quay lại
+    </a>
+</div>
+    </div>
     <?php if ($msg):   ?><div class="alert success"><?= htmlspecialchars($msg)   ?></div><?php endif; ?>
     <?php if ($error): ?><div class="alert error"><?= htmlspecialchars($error) ?></div><?php endif; ?>
 
     <div class="form-container">
-      <!--  KHÔNG đổi cấu trúc form -->
       <form method="POST" enctype="multipart/form-data" autocomplete="off">
         <input type="hidden" name="csrf" value="<?= $csrf ?>">
         <input type="hidden" name="do"   value="save">
@@ -70,7 +73,6 @@ $csrf = Csrf::token();
           }
           ?>
         </div>
-
         <label>Ảnh banner món ăn:</label>
         <input type="file" name="banner_image" accept="image/*">
         <div style="margin-top:6px;">
@@ -99,6 +101,7 @@ $csrf = Csrf::token();
               <th>Hành động</th>
             </tr>
           </thead>
+
           <tbody>
           <?php if ($list && $list->num_rows): ?>
             <?php while ($r = $list->fetch_assoc()): ?>
@@ -142,7 +145,6 @@ $csrf = Csrf::token();
     </div>
   </main>
 </div>
-
 <?php AdminLayout::footer(); ?>
 </body>
 </html>

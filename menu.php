@@ -5,8 +5,8 @@ include 'includes/db.php';
 use App\Controllers\MenuController;
 
 $ctrl  = new MenuController();
-$items = $ctrl->listAvailable(); // mysqli_result
-?>
+$items = $ctrl->listAvailable();
+$menuItems = $ctrl->indexWithPromotions();?>
 
 <?php include 'header.php'; ?>
 <section class="menu-section">
@@ -28,39 +28,50 @@ $items = $ctrl->listAvailable(); // mysqli_result
     <button class="filter-btn" data-category="dessert">Tráng miệng</button>
     <button class="filter-btn" data-category="drink">Đồ uống</button>
   </div>
-
-  <div class="menu-list">
-    <?php if ($items instanceof mysqli_result && $items->num_rows): ?>
-<?php while ($item = $items->fetch_assoc()): ?>
-  <?php
-    $id       = (int)($item['id'] ?? 0);
-    $name     = htmlspecialchars($item['name'] ?? 'Món ăn');
-    $desc     = htmlspecialchars($item['description'] ?? '');
-    $priceRaw = isset($item['price']) ? (float)$item['price'] : 0;
-    $price    = number_format($priceRaw);
-    $image    = htmlspecialchars($item['image_url'] ?? '');
-    $category = strtolower(trim($item['category'] ?? 'other'));
-    $specialClass = !empty($item['is_special']) ? ' special' : '';
-  ?>
-  <div class="menu-card<?= $specialClass ?>"
-       data-category="<?= $category ?>"
-       data-name="<?= strtolower($name) ?>"
-       data-desc="<?= strtolower($desc) ?>">
+<div class="menu-list">
+<?php if (!empty($menuItems)): ?>
+    <?php foreach ($menuItems as $menuData): 
+        $item = $menuData['item'];
+        $id = (int)($item['id'] ?? 0);
+        $name = htmlspecialchars($item['name'] ?? 'Món ăn');
+        $desc = htmlspecialchars($item['description'] ?? '');
+        $image = htmlspecialchars($item['image_url'] ?? '');
+        $category = strtolower(trim($item['category'] ?? 'other'));
+        $specialClass = !empty($item['is_special']) ? ' special' : '';
+        $priceRaw = (float)($menuData['final_price'] ?? $item['price']);
+        $originalPrice = (float)($menuData['original_price'] ?? $item['price']);
+        $price = number_format($priceRaw);
+        $originalPriceFormatted = number_format($originalPrice);
+        $hasPromotion = !empty($menuData['has_promotion']);
+    ?>
+ <div class="menu-card<?= $specialClass ?>"
+     data-category="<?= $category ?>"
+     data-name="<?= strtolower($name) ?>"
+     data-desc="<?= strtolower($desc) ?>">
     <?php if ($image): ?>
-      <img src="admin/<?= $image ?>" alt="<?= $name ?>" loading="lazy">
+        <img src="admin/<?= $image ?>" alt="<?= $name ?>" loading="lazy">
     <?php endif; ?>
+
     <h3><?= $name ?></h3>
     <p><?= $desc ?></p>
-    <p class="price"><?= $price ?> đ</p>
 
-    <!-- Nút sang trang chi tiết -->
-    <a href="detail.php?id=<?= $id ?>" class="detail-btn">Xem chi tiết</a>
-  </div>
-<?php endwhile; ?>
+    <?php if ($hasPromotion): ?>
+        <p class="price">
+            <span class="original-price"><?= $originalPriceFormatted ?> đ</span>
+            <span class="final-price"><?= $price ?> đ</span>
+            <span class="badge-sale">Sale</span>
+        </p>
+        <p class="promo-note">Khuyến mãi áp dụng! Giá đã bao gồm giảm giá.</p>
     <?php else: ?>
-      <p class="no-items">Hiện chưa có món nào trong thực đơn.</p>
+        <p class="price"><?= $price ?> đ</p>
     <?php endif; ?>
-  </div>
+        <a href="detail.php?id=<?= $id ?>" class="detail-btn">Xem chi tiết</a>
+    </div>
+    <?php endforeach; ?>
+<?php else: ?>
+    <p class="no-items">Hiện chưa có món nào trong thực đơn.</p>
+<?php endif; ?>
+</div>
 </section>
 <script>
 document.addEventListener('DOMContentLoaded', () => {

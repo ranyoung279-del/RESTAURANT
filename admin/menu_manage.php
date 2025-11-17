@@ -30,7 +30,7 @@ $csrf = Csrf::token();
 </head>
 <body>
 
-<?php AdminLayout::header(); ?>
+<?php include 'header.php'; ?>
 
 <div class="admin-dashboard">
   <?php AdminLayout::sidebar(); ?>
@@ -38,8 +38,13 @@ $csrf = Csrf::token();
   <main class="admin-overview">
     <div>
       <h2>Quản lý thực đơn</h2>
-      <a href="dashboard.php" class="btn">Quay lại</a>
     </div>
+    <div class="admin-page-header">
+    <a href="dashboard.php" class="admin-back-btn">
+        <span class="admin-back-btn-icon">←</span>
+        Quay lại
+    </a>
+</div>
 
     <?php if ($message): ?>
       <div class="alert success"><?= htmlspecialchars($message) ?></div>

@@ -1,0 +1,6 @@
+[2025-11-17 11:39:27] To: ranyoung279@gmail.com
+Link: http://localhost:8080/RESTAURANT/reset_password.php?token=e26836058ed7ff541c0caa33950236c833149b819369c01ffa7a438a06cab25b
+
+[2025-11-17 11:45:27] To: ranyoung279@gmail.com
+Link: http://localhost:8080/RESTAURANT/reset_password.php?token=3fca845c5c0d3d3121e5f86ee4fb4234fe213ff518c7b9f4d2d8a06d00b8eca1
+
