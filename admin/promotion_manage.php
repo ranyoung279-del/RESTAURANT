@@ -83,11 +83,6 @@ $csrf = Csrf::token();
                         <label>Ngày kết thúc:</label>
                         <input type="datetime-local" name="end_at">
                     </div>
-                    
-                    <div style="grid-column: 1 / -1;">
-                        <label>URL hình ảnh:</label>
-                        <input type="text" name="image_url">
-                    </div>
                     <!-- Áp dụng cho tất cả món -->
 <div>
     <label>
@@ -95,7 +90,6 @@ $csrf = Csrf::token();
         Áp dụng cho tất cả món
     </label>
 </div>
-
 <!-- Danh sách ID món áp dụng (nếu không áp dụng tất cả) -->
 <div>
     <label>Danh sách ID món áp dụng:</label>
@@ -210,11 +204,6 @@ $csrf = Csrf::token();
                 </div>
                 
                 <div style="grid-column: 1 / -1;">
-                    <label>URL hình ảnh:</label>
-                    <input type="text" name="image_url" id="edit_image_url">
-                </div>
-                
-                <div style="grid-column: 1 / -1;">
                     <label>
                         <input type="checkbox" name="active" id="edit_active"> Kích hoạt
                     </label>
@@ -256,7 +245,6 @@ $csrf = Csrf::token();
             document.getElementById('edit_end_at').value = promotion.end_at.replace(' ', 'T').substring(0, 16);
         }
         
-        document.getElementById('edit_image_url').value = promotion.image_url || '';
         document.getElementById('edit_active').checked = promotion.active == 1;
         
         document.getElementById('editModal').style.display = 'block';

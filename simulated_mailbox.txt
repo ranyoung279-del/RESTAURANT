@@ -1,6 +1,58 @@
-[2025-11-17 11:39:27] To: ranyoung279@gmail.com
-Link: http://localhost:8080/RESTAURANT/reset_password.php?token=e26836058ed7ff541c0caa33950236c833149b819369c01ffa7a438a06cab25b
+2025-11-17T18:11:06+00:00 | TO: hee@gmail.com | SUBJECT: Xác thực tài khoản khách hàng | SENT=mail()
+Xin chào hehe,
 
-[2025-11-17 11:45:27] To: ranyoung279@gmail.com
-Link: http://localhost:8080/RESTAURANT/reset_password.php?token=3fca845c5c0d3d3121e5f86ee4fb4234fe213ff518c7b9f4d2d8a06d00b8eca1
+Vui lòng nhấn vào liên kết sau để xác thực tài khoản: 
+http://localhost/verify_email.php?token=278e96e14776d063c72db1a4692aef23d74faa7e4c64837b955679077a5eea7b
 
+Liên kết hết hạn sau 24 giờ.
+2025-11-18T16:36:06+07:00 | TO: op@gmail.com | SUBJECT: Xác thực tài khoản khách hàng | SENT=mail()
+Xin chào op,
+
+Vui lòng nhấn vào liên kết sau để xác thực tài khoản: 
+http://localhost//RESTAURANT/verify_email.php?token=9c975428ed657d215f40e93479f2e4c3bb13890a1cde7a1b5735fc962065fded
+
+Liên kết hết hạn sau 24 giờ.
+-----------------------------
+2025-11-18T17:20:01+07:00 | TO: ranyoung279@gmail.com | SUBJECT: Yêu cầu đặt lại mật khẩu | SENT=mail()
+Nếu bạn vừa yêu cầu đặt lại mật khẩu, hãy truy cập: 
+http://localhost/Restaurant/reset_password.php?email=ranyoung279%40gmail.com&token=ddded42830524f0482923c7c854a963f
+
+Liên kết có hiệu lực 60 phút.
+-----------------------------
+2025-11-18T17:20:14+07:00 | TO: haha@gmail.com | SUBJECT: Yêu cầu đặt lại mật khẩu | SENT=mail()
+Nếu bạn vừa yêu cầu đặt lại mật khẩu, hãy truy cập: 
+http://localhost/Restaurant/reset_password.php?email=haha%40gmail.com&token=2d98be0a9ce3e9acef07949ab0e14469
+
+Liên kết có hiệu lực 60 phút.
+-----------------------------
+2025-11-18T17:31:37+07:00 | TO: ranyoung279@gmail.com | SUBJECT: Yêu cầu đặt lại mật khẩu | SENT=mail()
+Nếu bạn vừa yêu cầu đặt lại mật khẩu, hãy truy cập: 
+http://localhost/Restaurant/reset_password.php?email=ranyoung279%40gmail.com&token=c6b3094262fc3a287e20b234b16bd8a4
+
+Liên kết có hiệu lực 60 phút.
+-----------------------------
+2025-11-18T17:37:34+07:00 | TO: daemne@gmail.com | SUBJECT: Yêu cầu đặt lại mật khẩu Quản trị | SENT=mail()
+Nếu bạn vừa yêu cầu đặt lại mật khẩu Quản trị, hãy truy cập: 
+http://localhost/Restaurant/admin/reset_password_admin.php?email=daemne%40gmail.com&token=32d0019e4d4b9007e79ae6acf0381f89
+
+Liên kết có hiệu lực 60 phút.
+-----------------------------
+2025-11-18T17:41:41+07:00 | TO: daemne@gmail.com | SUBJECT: Yêu cầu đặt lại mật khẩu Quản trị | SENT=mail()
+Nếu bạn vừa yêu cầu đặt lại mật khẩu Quản trị, hãy truy cập: 
+http://localhost/Restaurant/admin/reset_password_admin.php?email=daemne%40gmail.com&token=ceecce663a4f7a35d666458c769a129d
+
+Liên kết có hiệu lực 60 phút.
+-----------------------------
+2025-11-18T18:02:56+07:00 | TO: thune@gmail.com | SUBJECT: Mời kích hoạt tài khoản nhân viên | SENT=mail()
+Xin chào hahaha,
+
+Bạn được mời tạo tài khoản quản trị. Vui lòng đặt mật khẩu tại liên kết (hiệu lực 24h):
+http://localhost/Restaurant/admin/activate_staff.php?token=7e8f44a300411dd56b98a666dc1c48d6a8e2e4849c4e589ddb9ca164da89bbab
+Nếu bạn không mong đợi email này, hãy bỏ qua.
+-----------------------------
+2025-11-18T18:05:05+07:00 | TO: thune@gmail.com | SUBJECT: Yêu cầu đặt lại mật khẩu Quản trị | SENT=mail()
+Nếu bạn vừa yêu cầu đặt lại mật khẩu Quản trị, hãy truy cập: 
+http://localhost/Restaurant/admin/reset_password_admin.php?email=thune%40gmail.com&token=82eb7ef8844513769f9c899e318f77f1
+
+Liên kết có hiệu lực 60 phút.
+-----------------------------

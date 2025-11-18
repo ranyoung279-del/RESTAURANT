@@ -260,6 +260,35 @@ final class Customer {
         return $stmt->execute(); // trùng email -> false (errno 1062)
     }
 }
+/** ===================== CUSTOMER EMAIL VERIFICATION ===================== */
+final class EmailVerification {
+    public static function create(int $customerId, int $ttlMinutes = 1440): ?string {
+        $token = bin2hex(random_bytes(32));
+        $expires = date('Y-m-d H:i:s', time() + $ttlMinutes * 60);
+        $stmt = Db::conn()->prepare("INSERT INTO customer_email_verification_tokens (customer_id, token, expires_at) VALUES (?,?,?)");
+        if (!$stmt) return null;
+        $stmt->bind_param('iss', $customerId, $token, $expires);
+        return $stmt->execute() ? $token : null;
+    }
+
+    public static function verify(string $token): ?int {
+        $stmt = Db::conn()->prepare(
+            "SELECT customer_id FROM customer_email_verification_tokens
+              WHERE token=? AND used_at IS NULL AND expires_at > NOW() LIMIT 1"
+        );
+        if (!$stmt) return null;
+        $stmt->bind_param('s', $token);
+        $stmt->execute();
+        $r = $stmt->get_result();
+        $row = $r? $r->fetch_assoc() : null;
+        return $row ? (int)$row['customer_id'] : null;
+    }
+
+    public static function consume(string $token): void {
+        $stmt = Db::conn()->prepare("UPDATE customer_email_verification_tokens SET used_at=NOW() WHERE token=?");
+        if ($stmt) { $stmt->bind_param('s', $token); $stmt->execute(); }
+    }
+}
 
 /** ===================== ADMIN USER (NHÂN SỰ QUẢN TRỊ) ===================== */
 final class AdminUser {
@@ -307,6 +336,7 @@ final class PasswordReset {
         Db::conn()->query("DELETE FROM password_resets WHERE expires_at <= NOW() OR used_at IS NOT NULL");
     }
 }
+
 
 /** ===================== PROMOTION (KHUYẾN MÃI) ===================== */
 final class Promotion {

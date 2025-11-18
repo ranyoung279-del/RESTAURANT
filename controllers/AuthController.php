@@ -35,6 +35,11 @@ final class AuthController
 
         $user = Customer::byEmail($email);
         if ($user && !empty($user['password_hash']) && password_verify($password, $user['password_hash'])) {
+            // Chưa xác thực email -> từ chối đăng nhập
+            if (empty($user['email_verified_at'])) {
+                $_SESSION['error'] = 'Tài khoản chưa xác thực email. Vui lòng kiểm tra hộp thư của bạn.';
+                return [false, 'Tài khoản chưa xác thực email.'];
+            }
             $_SESSION['customer_id']    = (int)$user['id'];
             $_SESSION['customer_name']  = (string)($user['full_name'] ?? '');
             $_SESSION['customer_phone'] = (string)($user['phone'] ?? '');

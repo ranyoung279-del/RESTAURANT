@@ -301,9 +301,9 @@ $csrf = $result['csrf'] ?? Csrf::token();
                 <td><?= htmlspecialchars($s['role']) ?></td>
                 <td>
                   <?php if (!empty($s['password_hash'])): ?>
-                    ✅ Đã đặt mật khẩu
+                    ------------------
                   <?php else: ?>
-                    ⏳ Chưa đặt mật khẩu
+                    ------------------
                   <?php endif; ?>
                 </td>
                 <td><?= htmlspecialchars($s['created_at']) ?></td>

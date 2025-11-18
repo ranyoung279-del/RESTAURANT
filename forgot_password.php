@@ -10,7 +10,22 @@ $message = null;
 $error = null;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    [$message, $error] = $controller->handleCustomerForgotPassword();
+  // Tạo token reset cho khách hàng qua email (dùng bảng password_resets)
+  $email = trim((string)($_POST['email'] ?? ''));
+  if ($email !== '' && filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    $token = \App\Models\PasswordReset::create($email, 60);
+    if ($token) {
+      $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? 'https' : 'http';
+      $host   = $_SERVER['HTTP_HOST'] ?? 'localhost';
+      $path   = rtrim(dirname($_SERVER['SCRIPT_NAME'] ?? ''), '/\\');
+      $link   = $scheme . '://' . $host . $path . '/reset_password.php?email=' . urlencode($email) . '&token=' . urlencode($token);
+      $subject = 'Yêu cầu đặt lại mật khẩu';
+      $body  = "Nếu bạn vừa yêu cầu đặt lại mật khẩu, hãy truy cập: \n$link\n\n";
+      $body .= "Liên kết có hiệu lực 60 phút.";
+      \App\Email::send($email, $subject, $body);
+    }
+  }
+  $message = 'Nếu email tồn tại, hệ thống đã gửi hướng dẫn đặt lại mật khẩu.';
 }
 ?>
 <!DOCTYPE html>

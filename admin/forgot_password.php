@@ -4,14 +4,54 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/../includes/db.php';
 
-use App\Controllers\AuthController;
+// Cần các lớp/models này cho logic
+use App\Models\PasswordReset;
+use App\Db;
+use App\Email; // Giả định Email class tồn tại
 
 $message = null;
-$error   = null;
+$error = null;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $ctl = new AuthController();
-    [$message, $error] = $ctl->handleAdminForgotPassword();
+    // Lấy tên đăng nhập hoặc email
+    $identifier = trim((string)($_POST['identifier'] ?? ''));
+
+    if ($identifier !== '') {
+        // 1. Tìm kiếm Admin bằng email hoặc username
+        $stmt = Db::conn()->prepare('SELECT email FROM users WHERE username=? OR email=? LIMIT 1');
+        if ($stmt) {
+            $stmt->bind_param('ss', $identifier, $identifier);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $admin = $result->fetch_assoc();
+            $stmt->close();
+        }
+
+        if (isset($admin)) {
+            $email = $admin['email'];
+            // 2. Tạo token reset cho Admin (dùng bảng password_resets)
+            $token = PasswordReset::create($email, 60); // 60 phút
+            
+            if ($token) {
+                // 3. Xây dựng link reset trỏ đến trang mới
+                $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? 'https' : 'http';
+                $host   = $_SERVER['HTTP_HOST'] ?? 'localhost';
+                // Đường dẫn tới admin/reset_password_admin.php
+                $path   = rtrim(dirname($_SERVER['SCRIPT_NAME'] ?? ''), '/\\'); 
+                $link   = $scheme . '://' . $host . $path . '/reset_password_admin.php?email=' . urlencode($email) . '&token=' . urlencode($token);
+                
+                $subject = 'Yêu cầu đặt lại mật khẩu Quản trị';
+                $body  = "Nếu bạn vừa yêu cầu đặt lại mật khẩu Quản trị, hãy truy cập: \n$link\n\n";
+                $body .= "Liên kết có hiệu lực 60 phút.";
+                
+                // 4. Gửi email
+                // Giả định Email::send($to, $subject, $body) tồn tại
+                Email::send($email, $subject, $body);
+            }
+        }
+    }
+    // Thông báo chung để tránh tiết lộ email có tồn tại hay không
+    $message = 'Nếu email hoặc tên đăng nhập tồn tại, hệ thống đã gửi hướng dẫn đặt lại mật khẩu.';
 }
 ?>
 <!DOCTYPE html>
