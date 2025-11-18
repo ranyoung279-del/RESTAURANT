@@ -35,8 +35,10 @@ $csrf = Csrf::token();
   <?php AdminLayout::sidebar(); ?>
 
   <main class="admin-overview">
-    <h2>Danh sách đặt bàn</h2>
+    <h2>📅 Danh sách đặt bàn</h2>
     <div class="admin-page-header">
+    <h1 class="admin-page-title">Danh sách đặt bàn</h1>
+
     <a href="dashboard.php" class="admin-back-btn">
         <span class="admin-back-btn-icon">←</span>
         Quay lại

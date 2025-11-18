@@ -5,20 +5,29 @@ use App\Db;
 /** ===================== MENU ===================== */
 final class Menu {
     public static function listAvailable() {
-        return Db::conn()->query(
-            "SELECT * FROM menu_items
-             WHERE is_available=1
-             ORDER BY is_special DESC, name ASC"
-        );
+        try {
+            return Db::conn()->query(
+                "SELECT * FROM menu_items
+                 WHERE is_available=1
+                 ORDER BY is_special DESC, name ASC"
+            );
+        } catch (\Throwable $e) {
+            // Table may not exist in a fresh DB; return false to indicate no results
+            return false;
+        }
     }
 
     public static function hotDeals(int $limit = 5) {
         $limit = max(1, (int)$limit);
-        return Db::conn()->query(
-            "SELECT * FROM menu_items
-             ORDER BY is_special DESC, id DESC
-             LIMIT {$limit}"
-        );
+        try {
+            return Db::conn()->query(
+                "SELECT * FROM menu_items
+                 ORDER BY is_special DESC, id DESC
+                 LIMIT {$limit}"
+            );
+        } catch (\Throwable $e) {
+            return false;
+        }
     }
 
     public static function findById(int $id): ?array {
@@ -29,7 +38,7 @@ final class Menu {
         $r = $stmt->get_result();
         return $r? $r->fetch_assoc() : null;
     }
-    /** ===================== PHẦN KHUYẾN MÃI ===================== */
+       /** ===================== PHẦN KHUYẾN MÃI ===================== */
     
     /**
      * Lấy thông tin món ăn kèm khuyến mãi
@@ -139,16 +148,24 @@ final class Menu {
 /** ===================== HOME (TRANG CHỦ) ===================== */
 final class Home {
     public static function one(): ?array {
-        $res = Db::conn()->query("SELECT * FROM home_settings LIMIT 1");
-        return $res? $res->fetch_assoc() : null;
+        try {
+            $res = Db::conn()->query("SELECT * FROM home_settings LIMIT 1");
+            return $res? $res->fetch_assoc() : null;
+        } catch (\Throwable $e) {
+            return null;
+        }
     }
 }
 
 /** ===================== SETTINGS (ĐỊA CHỈ / LIÊN HỆ) ===================== */
 final class Setting {
     public static function one(): ?array {
-        $res = Db::conn()->query("SELECT * FROM settings ORDER BY id DESC LIMIT 1");
-        return $res? $res->fetch_assoc() : null;
+        try {
+            $res = Db::conn()->query("SELECT * FROM settings ORDER BY id DESC LIMIT 1");
+            return $res? $res->fetch_assoc() : null;
+        } catch (\Throwable $e) {
+            return null;
+        }
     }
 
     public static function updateById(int $id, array $data): bool {
@@ -176,8 +193,8 @@ final class Reservation
 {
     public static function create(array $data): bool {
         $sql = "INSERT INTO reservations
-                   (customer_id, full_name, phone, reservation_date, people_count, table_type, note, status, created_at)
-                VALUES(?, ?, ?, ?, ?, ?, ?, 'pending', NOW())";
+                   (customer_id, full_name, phone, reservation_date, people_count, table_type, note, status, confirmation_code, created_at)
+                VALUES(?, ?, ?, ?, ?, ?, ?, 'pending', ?, NOW())";
         $stmt = Db::conn()->prepare($sql);
         if (!$stmt) return false;
 
@@ -188,13 +205,34 @@ final class Reservation
         $people_count   = (int)($data['people_count'] ?? 1);
         $table_type     = $data['table_type'] ?? '';
         $note           = $data['note'] ?? '';
+        $code           = strtoupper(bin2hex(random_bytes(4))); // 8 hex chars
 
         $stmt->bind_param(
-            "isssiss",
+            "isssisss",
             $customer_id, $full_name, $phone, $reservation_dt,
-            $people_count, $table_type, $note
+            $people_count, $table_type, $note, $code
         );
-        return $stmt->execute();
+        $ok = $stmt->execute();
+        if ($ok && $customer_id) {
+            // gửi email xác nhận đặt bàn
+            $custStmt = Db::conn()->prepare("SELECT email FROM customers WHERE id=? LIMIT 1");
+            if ($custStmt) {
+                $custStmt->bind_param('i', $customer_id);
+                $custStmt->execute();
+                $r = $custStmt->get_result();
+                $row = $r? $r->fetch_assoc() : null;
+                if ($row && !empty($row['email'])) {
+                    $subject = 'Xác nhận đặt bàn #' . Db::conn()->insert_id;
+                    $body  = "Xin chào " . $full_name . "\n";
+                    $body .= "Yêu cầu đặt bàn của bạn đã được ghi nhận. Mã xác nhận: $code\n";
+                    $body .= "Thời gian: $reservation_dt\nSố người: $people_count\nLoại bàn: $table_type\n";
+                    if ($note !== '') { $body .= "Ghi chú: $note\n"; }
+                    $body .= "\nVui lòng cung cấp mã này khi cần kiểm tra hoặc chỉnh sửa đặt bàn.";
+                    \App\Email::send($row['email'], $subject, $body);
+                }
+            }
+        }
+        return $ok;
     }
 
     /** ✅ THÊM: Lịch sử đặt bàn theo khách hàng (đặt ĐÚNG bên trong class) */
@@ -210,9 +248,13 @@ final class Reservation
     }
 
     public static function listAll() {
-        return Db::conn()->query(
-            "SELECT * FROM reservations ORDER BY reservation_date DESC"
-        );
+        try {
+            return Db::conn()->query(
+                "SELECT * FROM reservations ORDER BY reservation_date DESC"
+            );
+        } catch (\Throwable $e) {
+            return false;
+        }
     }
 
     public static function setStatus(int $id, string $status): bool {
@@ -252,14 +294,15 @@ final class Customer {
     // tạo tài khoản khách
     public static function create(string $fullName, string $email, string $phone, string $password): bool {
         $hash = password_hash($password, PASSWORD_DEFAULT);
-        $sql  = "INSERT INTO customers (full_name, email, phone, password_hash, created_at)
-                 VALUES (?,?,?,?, NOW())";
+        $sql  = "INSERT INTO customers (full_name, email, phone, password_hash, created_at, email_verified_at)
+                 VALUES (?,?,?,?, NOW(), NULL)";
         $stmt = Db::conn()->prepare($sql);
         if (!$stmt) return false;
         $stmt->bind_param("ssss", $fullName, $email, $phone, $hash);
         return $stmt->execute(); // trùng email -> false (errno 1062)
     }
 }
+
 /** ===================== CUSTOMER EMAIL VERIFICATION ===================== */
 final class EmailVerification {
     public static function create(int $customerId, int $ttlMinutes = 1440): ?string {
@@ -333,13 +376,20 @@ final class PasswordReset {
     }
 
     public static function purgeExpired(): void {
-        Db::conn()->query("DELETE FROM password_resets WHERE expires_at <= NOW() OR used_at IS NOT NULL");
+        try {
+            Db::conn()->query("DELETE FROM password_resets WHERE expires_at <= NOW() OR used_at IS NOT NULL");
+        } catch (\Throwable $e) {
+            // ignore if table missing or other DB error in maintenance job
+        }
     }
 }
 
-
 /** ===================== PROMOTION (KHUYẾN MÃI) ===================== */
 final class Promotion {
+    /* Cần có:
+       promotions(id,name,type('percent'|'fixed'),value,starts_at,ends_at,active)
+       promotion_items(promotion_id, menu_item_id)
+    */
     public static function priceForItem(int $itemId, float $basePrice): float {
         $sql =
           "SELECT p.type, p.value
@@ -365,3 +415,4 @@ final class Promotion {
         return round($price, 2);
     }
 }
+

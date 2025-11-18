@@ -37,7 +37,7 @@ $csrf = Csrf::token();
 
   <main class="admin-overview">
     <div style="display:flex;justify-content:space-between;align-items:center;">
-      <h2>Nội dung trang chủ</h2>
+      <h2>🏠 Nội dung trang chủ</h2>
       <div class="admin-page-header">
 
     <a href="dashboard.php" class="admin-back-btn">
@@ -46,6 +46,7 @@ $csrf = Csrf::token();
     </a>
 </div>
     </div>
+
     <?php if ($msg):   ?><div class="alert success"><?= htmlspecialchars($msg)   ?></div><?php endif; ?>
     <?php if ($error): ?><div class="alert error"><?= htmlspecialchars($error) ?></div><?php endif; ?>
 
@@ -73,6 +74,7 @@ $csrf = Csrf::token();
           }
           ?>
         </div>
+
         <label>Ảnh banner món ăn:</label>
         <input type="file" name="banner_image" accept="image/*">
         <div style="margin-top:6px;">
