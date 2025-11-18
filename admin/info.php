@@ -16,7 +16,10 @@ Auth::guardAdmin();  // sẽ redirect về login.php nếu không đủ quyền
 </head>
 <body>
 <?php include 'header.php'; ?>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8d71618b4a15096e4cfb9fce32de9e4852252747
 <div class="admin-dashboard">
   <?php include __DIR__ . '/sidebar.php'; ?>
 

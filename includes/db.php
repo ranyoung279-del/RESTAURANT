@@ -1,5 +1,5 @@
-
 <?php
+date_default_timezone_set('Asia/Ho_Chi_Minh');
 // ---- PSR-4 autoload đơn giản cho project ----
 spl_autoload_register(function ($class) {
     // Map prefix -> thư mục thật
@@ -38,11 +38,27 @@ spl_autoload_register(function ($class) {
 // Nạp các lớp cần dùng (đúng tên file bạn đang có: db.php, auth.php, csrf.php, models.php)
 require_once __DIR__ . '/classes/db.php';
 require_once __DIR__ . '/classes/auth.php';
+// Khởi động session sớm nếu có thể (an toàn nếu header đã gửi)
+\App\Auth::start();
+// Nếu đã gửi output (do file khác) thì bật output buffering để tránh warning session.
+if (!headers_sent()) {
+    // không làm gì, an toàn
+} else {
+    // Bật buffering tiếp tục (chỉ khi đã gửi) để giảm cảnh báo kế tiếp
+    if (function_exists('ob_start')) ob_start();
+}
 if (file_exists(__DIR__ . '/classes/csrf.php')) {
     require_once __DIR__ . '/classes/csrf.php';
 }
 require_once __DIR__ . '/classes/models.php';
 require_once __DIR__ . '/classes/components.php';
+if (file_exists(__DIR__ . '/classes/email.php')) {
+    require_once __DIR__ . '/classes/email.php';
+}
+// Composer autoload (PHPMailer, etc.)
+if (file_exists(__DIR__ . '/../vendor/autoload.php')) {
+    require_once __DIR__ . '/../vendor/autoload.php';
+}
 
 // Tạo kết nối dùng chung cho code cũ
 $conn = App\Db::conn();

@@ -215,10 +215,15 @@ final class UserController
             return [false, 'Email hoặc tên đăng nhập đã tồn tại.'];
         }
 
+<<<<<<< HEAD
         // Tạo user với password tạm (có thể random); sau đó dùng activate_staff để đặt lại
         $tmpPassword = bin2hex(random_bytes(4)); // 8 ký tự hex
         $hash        = password_hash($tmpPassword, PASSWORD_BCRYPT);
 
+=======
+        // Tạo user với password rỗng để bắt buộc đặt qua email kích hoạt
+        $emptyHash = '';
+>>>>>>> 8d71618b4a15096e4cfb9fce32de9e4852252747
         $stmt = Db::conn()->prepare(
             "INSERT INTO users (username, email, password_hash, role, created_at)
              VALUES (?, ?, ?, ?, NOW())"
@@ -226,11 +231,35 @@ final class UserController
         if (!$stmt) {
             return [false, 'Lỗi hệ thống (prepare create staff).'];
         }
+<<<<<<< HEAD
 
         $stmt->bind_param('ssss', $username, $email, $hash, $role);
         if ($stmt->execute()) {
             // TODO: nếu muốn, bạn có thể gửi email chứa link activate_staff.php + token
             return [true, 'Đã tạo tài khoản nhân viên. Hãy gửi link kích hoạt / đặt mật khẩu cho họ.'];
+=======
+        $stmt->bind_param('ssss', $username, $email, $emptyHash, $role);
+        if ($stmt->execute()) {
+            $userId = Db::conn()->insert_id;
+            // Tạo token kích hoạt
+            $token = bin2hex(random_bytes(32));
+            $expires = (new \DateTimeImmutable('+24 hours'))->format('Y-m-d H:i:s');
+            $tokStmt = Db::conn()->prepare("INSERT INTO admin_invite_tokens (user_id, token, expires_at) VALUES (?,?,?)");
+            if ($tokStmt) {
+                $tokStmt->bind_param('iss', $userId, $token, $expires);
+                $tokStmt->execute();
+            }
+            $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? 'https' : 'http';
+            $host   = $_SERVER['HTTP_HOST'] ?? 'localhost';
+            $path   = rtrim(dirname($_SERVER['SCRIPT_NAME'] ?? ''), '/\\');
+            $link   = $scheme . '://' . $host . $path . '/activate_staff.php?token=' . urlencode($token);
+            $subject = 'Mời kích hoạt tài khoản nhân viên';
+            $body  = "Xin chào $username,\n\n";
+            $body .= "Bạn được mời tạo tài khoản quản trị. Vui lòng đặt mật khẩu tại liên kết (hiệu lực 24h):\n$link\n";
+            $body .= "Nếu bạn không mong đợi email này, hãy bỏ qua.";
+            \App\Email::send($email, $subject, $body);
+            return [true, 'Đã tạo tài khoản và gửi email kích hoạt đặt mật khẩu.'];
+>>>>>>> 8d71618b4a15096e4cfb9fce32de9e4852252747
         }
 
         return [false, 'Không thể tạo nhân viên: ' . $stmt->error];

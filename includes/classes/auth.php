@@ -76,7 +76,12 @@ namespace App;
 final class Auth {
     /** Bắt đầu session an toàn */
     public static function start(): void {
-        if (session_status() === \PHP_SESSION_NONE) session_start();
+        if (session_status() === \PHP_SESSION_ACTIVE) return;
+        if (headers_sent()) {
+            if (!isset($_SESSION) || !is_array($_SESSION)) $_SESSION = [];
+            return; // Tránh warning khi header đã gửi
+        }
+        @session_start();
     }
 
     /** Chỉ cho admin/staff vào khu vực admin */

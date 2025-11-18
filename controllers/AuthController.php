@@ -56,6 +56,25 @@ final class AuthController
             exit;
         }
     }
+    /**
+ * Xử lý form Quên mật khẩu của khách hàng (OOP)
+ * Không gửi email, không tạo token — chỉ trả về thông báo chung.
+ */
+public function handleCustomerForgotPassword(): array
+{
+    $email = trim((string)($_POST['email'] ?? ''));
+
+    if ($email === '') {
+        return [null, 'Vui lòng nhập email của bạn.'];
+    }
+
+    // Tìm user bằng model Customer (nếu bạn muốn xác thực email tồn tại)
+    $user = \App\Models\Customer::byEmail($email);
+
+    // KHÔNG gửi mail – KHÔNG tạo token – tránh leak thông tin
+    $message = 'Nếu email tồn tại trong hệ thống, chúng tôi sẽ gửi hướng dẫn đặt lại mật khẩu.';
+    return [$message, null];
+}
 
     /* ===========================
        2) ADMIN/STAFF AUTH

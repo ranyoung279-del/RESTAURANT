@@ -9,17 +9,20 @@ use App\Models\Menu; // <-- cần dòng này để gọi model Menu
 
 final class MenuController
 {
-        public function handleManage(): array
+    /* ===================== ADMIN ===================== */
+    public function handleManage(): array
     {
         Auth::guardAdmin();
         $message = '';
         $error = '';
         $edit_data = null;
+
         // Lấy dữ liệu sửa
         $editId = isset($_GET['id']) ? (int)$_GET['id'] : 0;
         if ($editId > 0) {
             $edit_data = $this->find($editId);
         }
+
         // Xoá
         if (isset($_GET['delete'])) {
             $delId = (int)$_GET['delete'];
@@ -32,6 +35,7 @@ final class MenuController
                 }
             }
         }
+
         // Thêm / Sửa
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $ok = $this->save($_POST, $_FILES, $_POST['csrf'] ?? null);
@@ -42,62 +46,30 @@ final class MenuController
                 $error = 'Lưu thất bại (kiểm tra CSRF/ảnh/đầu vào).';
             }
         }
+
         return [
             'message' => $message,
             'error' => $error,
             'edit_data' => $edit_data
         ];
     }
+
     /* ===================== FRONT ===================== */
     public function listAvailable()
     {
         return Menu::listAvailable(); // trả về mysqli_result để view while->fetch_assoc()
     }
 
-    /** Front: Hot deals (tuỳ chọn dùng ở trang chủ) */
     public function hotDeals(int $limit = 5)
     {
         return Menu::hotDeals($limit); // mysqli_result
     }
 
-    /* ===================== ADMIN ===================== */
-
-    /** Admin: liệt kê tất cả món */
-     public function listAll()
-    {
-        Auth::guardAdmin();
-        return Db::conn()->query("SELECT * FROM menu_items ORDER BY id DESC");
-    }
-
-    /** Admin: lấy 1 món theo id */
-    public function find(int $id): ?array
-    {
-        Auth::guardAdmin();
-        $stmt = Db::conn()->prepare("SELECT * FROM menu_items WHERE id=? LIMIT 1");
-        if (!$stmt) return null;
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-        $res = $stmt->get_result();
-        return $res ? $res->fetch_assoc() : null;
-    }
-    public function findOne(int $id): ?array
-{
-    if ($id <= 0) return null;
-
-    $db = \App\Db::conn();
-    $stmt = $db->prepare("SELECT * FROM menu_items WHERE id = ? AND is_available = 1 LIMIT 1");
-    if (!$stmt) return null;
-
-    $stmt->bind_param("i", $id);
-    $stmt->execute();
-    $res = $stmt->get_result();
-    return $res ? $res->fetch_assoc() : null;
-}
-  public function handleDetail(): array
+    /** Front: chi tiết món ăn */
+    public function handleDetail(): array
     {
         $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
-
-        $item  = null;
+        $item = null;
         $error = '';
 
         if ($id <= 0) {
@@ -110,11 +82,105 @@ final class MenuController
         }
 
         return [
-            'item'  => $item,
-            'error' => $error,
+            'item' => $item,
+            'error' => $error
         ];
     }
-/** Admin: thêm / cập nhật món */
+
+    /** Front: danh sách món kèm khuyến mãi */
+    public function indexWithPromotions(): array
+    {
+        $category = $_GET['category'] ?? null;
+        return Menu::getAllItemsWithPromotions($category);
+    }
+
+    /** Front: chi tiết món kèm khuyến mãi */
+    public function detailWithPromotion(): array
+    {
+        $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+
+        if ($id <= 0) {
+            return [
+                'item' => null,
+                'error' => 'Món ăn không hợp lệ.'
+            ];
+        }
+
+        $menuData = Menu::getItemWithPromotion($id);
+
+        if (!$menuData) {
+            return [
+                'item' => null,
+                'error' => 'Không tìm thấy món ăn.'
+            ];
+        }
+
+        return [
+            'item' => $menuData,
+            'error' => ''
+        ];
+    }
+
+    /** API: Lấy giá món ăn (AJAX/cart) */
+    public function getPrice(): void
+    {
+        header('Content-Type: application/json');
+
+        $menuItemId = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+        $menuData = Menu::getItemWithPromotion($menuItemId);
+
+        if ($menuData) {
+            echo json_encode([
+                'success' => true,
+                'data' => [
+                    'item_id' => $menuData['item']['id'],
+                    'name' => $menuData['item']['name'],
+                    'original_price' => $menuData['original_price'],
+                    'final_price' => $menuData['final_price'],
+                    'discount_amount' => $menuData['discount_amount'],
+                    'has_promotion' => $menuData['has_promotion'],
+                    'promotion' => $menuData['promotion']
+                ]
+            ]);
+        } else {
+            echo json_encode([
+                'success' => false,
+                'message' => 'Không tìm thấy món ăn'
+            ]);
+        }
+        exit;
+    }
+
+    /* ===================== ADMIN ===================== */
+    public function listAll()
+    {
+        Auth::guardAdmin();
+        return Db::conn()->query("SELECT * FROM menu_items ORDER BY id DESC");
+    }
+
+    public function find(int $id): ?array
+    {
+        Auth::guardAdmin();
+        $stmt = Db::conn()->prepare("SELECT * FROM menu_items WHERE id=? LIMIT 1");
+        if (!$stmt) return null;
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $res = $stmt->get_result();
+        return $res ? $res->fetch_assoc() : null;
+    }
+
+    public function findOne(int $id): ?array
+    {
+        if ($id <= 0) return null;
+        $db = Db::conn();
+        $stmt = $db->prepare("SELECT * FROM menu_items WHERE id = ? AND is_available = 1 LIMIT 1");
+        if (!$stmt) return null;
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $res = $stmt->get_result();
+        return $res ? $res->fetch_assoc() : null;
+    }
+
     public function save(array $data, array $files, ?string $csrf): bool
     {
         Auth::guardAdmin();
@@ -147,7 +213,6 @@ final class MenuController
         }
 
         if ($id > 0) {
-            // nếu không upload mới, giữ ảnh cũ
             if ($image_url === '') {
                 $old = $this->find($id);
                 if ($old && !empty($old['image_url'])) $image_url = $old['image_url'];
@@ -170,7 +235,6 @@ final class MenuController
         }
     }
 
-    /** Admin: xoá nhanh */
     public function deleteQuick(int $id): bool
     {
         Auth::guardAdmin();

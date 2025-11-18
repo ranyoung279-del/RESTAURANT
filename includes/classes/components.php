@@ -4,7 +4,7 @@ class AdminHeader {
     private string $username;
 
     public function __construct() {
-        if (session_status() === PHP_SESSION_NONE) session_start();
+        \App\Auth::start();
         $this->username = $_SESSION['username'] ?? 'Khách';
     }
 
@@ -46,7 +46,7 @@ class AdminSidebar {
     private array $items;
 
     public function __construct(?string $role = null) {
-        if (session_status() === \PHP_SESSION_NONE) session_start();
+        \App\Auth::start();
         $this->role = ($role ?? ($_SESSION['user_role'] ?? 'guest'));
 
         // Giữ nguyên cấu trúc menu cũ của bạn
@@ -59,6 +59,11 @@ class AdminSidebar {
             [
                 'label' => 'Quản lý đặt bàn',
                 'href'  => 'reservation_manage.php',
+                'roles' => ['admin', 'staff']
+            ],
+            [
+            'label' => 'Quản lý khuyến mãi',
+                'href'  => 'promotion_manage.php',
                 'roles' => ['admin', 'staff']
             ],
             [
@@ -103,7 +108,7 @@ class AdminSidebar {
 }
 final class Auth {
     public static function logout(string $redirect = 'login.php'): void {
-        if (session_status() === PHP_SESSION_NONE) session_start();
+        \App\Auth::start();
 
         // Xoá dữ liệu session
         $_SESSION = [];
@@ -126,7 +131,7 @@ final class Auth {
     }
 
     public static function guardAdmin(): void {
-        if (session_status() === PHP_SESSION_NONE) session_start();
+        \App\Auth::start();
         if (empty($_SESSION['user_role']) || !in_array($_SESSION['user_role'], ['admin', 'staff'])) {
             header("Location: login.php");
             exit;
@@ -137,7 +142,7 @@ final class Auth {
      * Yêu cầu quyền khách hàng
      */
     public static function guardCustomer(): void {
-        if (session_status() === PHP_SESSION_NONE) session_start();
+        \App\Auth::start();
         if (empty($_SESSION['customer_id'])) {
             header("Location: login_cus.php");
             exit;

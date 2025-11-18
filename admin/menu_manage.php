@@ -40,8 +40,11 @@ $csrf = Csrf::token();
       <h2>Quản lý thực đơn</h2>
     </div>
     <div class="admin-page-header">
+<<<<<<< HEAD
     <h1 class="admin-page-title">Quản lý thực đơn</h1>
 
+=======
+>>>>>>> 8d71618b4a15096e4cfb9fce32de9e4852252747
     <a href="dashboard.php" class="admin-back-btn">
         <span class="admin-back-btn-icon">←</span>
         Quay lại

@@ -31,6 +31,7 @@ function is_active($file, $current) {
         <a href="viewer.php"     <?= is_active('viewer.php', $current) ?>>Trang chủ</a>
         <a href="address.php"    <?= is_active('address.php', $current) ?>>Địa điểm</a>
         <a href="menu.php"       <?= is_active('menu.php', $current) ?>>Menu</a>
+        <a href="promotion.php"<?= is_active('promotion.php', $current) ?>>Khuyến mại</a>
         <a href="reservation.php"<?= is_active('reservation.php', $current) ?>>Đặt bàn</a>
         <a href="account.php"    <?= is_active('account.php', $current) ?>>Tài khoản</a>
       </nav>
