@@ -1,6 +1,6 @@
 <?php
 // login_cus.php (MVC/OOP chuẩn)
-include 'includes/db.php';
+require_once __DIR__ . '/includes/db.php';
 
 use App\Controllers\AuthController;
 use App\Auth;
@@ -17,6 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'login
         header('Location: account.php');
         exit;
     } else {
+        // redirect lại để show flash message (đã set $_SESSION['error'])
         header('Location: login_cus.php');
         exit;
     }
@@ -38,11 +39,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'login
       <p class="auth-error"><?= htmlspecialchars($_SESSION['error']); unset($_SESSION['error']); ?></p>
     <?php endif; ?>
 
-    <form method="post">
+    <form method="post" action="login_cus.php" autocomplete="on">
       <input type="hidden" name="action" value="login">
 
       <label>Email:</label>
-      <input type="email" name="email" placeholder="Nhập email của bạn" required>
+      <input type="email" name="email" placeholder="Nhập email của bạn" required
+             value="<?= htmlspecialchars($_POST['email'] ?? ''); ?>">
 
       <label>Mật khẩu:</label>
       <div style="position: relative;">
@@ -55,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'login
         </button>
       </div>
 
-      <button type="submit">Đăng nhập</button>
+      <button type="submit" style="margin-top:12px;padding:10px 16px;">Đăng nhập</button>
     </form>
 
     <p>

@@ -85,3 +85,20 @@ Loại bàn: Bàn thường
 
 Vui lòng cung cấp mã này khi cần kiểm tra hoặc chỉnh sửa đặt bàn.
 -----------------------------
+2025-11-18T20:43:45+07:00 | TO: ranyoung279@gmail.com | SUBJECT: Xác thực tài khoản khách hàng | SENT=mail()
+Xin chào hehihi,
+
+Vui lòng nhấn vào liên kết sau để xác thực tài khoản: 
+http://localhost/Restaurant/verify_email.php?token=c6a19254054d7a84b60ffe42ebadc5d682fbe0c537ad49dffc82058a92252c4d
+
+Liên kết hết hạn sau 24 giờ.
+-----------------------------
+2025-11-18T21:07:05+07:00 | TO: ranyoung279@gmail.com | SUBJECT: Xác nhận đặt bàn #0 | SENT=mail()
+Xin chào hehihi
+Yêu cầu đặt bàn của bạn đã được ghi nhận. Mã xác nhận: E0B597E1
+Thời gian: 2025-11-22 21:10:00
+Số người: 1
+Loại bàn: Bàn thường
+
+Vui lòng cung cấp mã này khi cần kiểm tra hoặc chỉnh sửa đặt bàn.
+-----------------------------

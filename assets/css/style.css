@@ -1774,3 +1774,60 @@ body.account-page {
     transform: translateY(-3px);
     box-shadow: 0 12px 30px rgba(29,128,129,0.4);
 }
+/* ===== REFINED SALE BADGE (fits your theme) ===== */
+.menu-card { position: relative; } /* đảm bảo badge căn đúng */
+
+.menu-card .badge-sale {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 999px;                    /* pill */
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: #fff;
+  background: linear-gradient(90deg, #fa0000 0%, #ff8a65 100%); /* warm contrast */
+  box-shadow: 0 8px 20px rgba(255,106,106,0.18);
+  transform: rotate(-8deg);                /* hơi nghiêng cho năng động */
+  transform-origin: top right;
+  z-index: 30;
+  border: 2px solid rgba(255,255,255,0.18);/* nhẹ viền sáng */
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+
+/* nhẹ chuyển động khi hover card */
+.menu-card:hover .badge-sale {
+  transform: rotate(-6deg) translateY(-2px);
+  box-shadow: 0 12px 26px rgba(255,106,106,0.24);
+}
+
+/* tail nhỏ phía bên phải tạo cảm giác ribbon nhưng không che nội dung */
+.menu-card .badge-sale::after{
+  content: "";
+  position: absolute;
+  right: -6px;
+  bottom: -6px;
+  width: 10px;
+  height: 10px;
+  background: rgba(0,0,0,0.06);
+  transform: rotate(45deg);
+  border-radius: 2px;
+  filter: blur(.2px);
+  z-index: -1;
+}
+
+.menu-card .badge-sale.small {
+  padding: 4px 8px;
+  font-size: 0.72rem;
+  top: 10px;
+  right: 10px;
+  transform: rotate(-6deg);
+}
+
+.menu-card .badge-sale--accent {
+  background: linear-gradient(90deg, var(--primary), var(--hover));
+  box-shadow: 0 8px 20px rgba(29,128,129,0.14);
+}
