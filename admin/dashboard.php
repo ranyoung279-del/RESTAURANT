@@ -14,7 +14,7 @@ $username = $_SESSION['username'] ?? 'Quản trị';
   <link rel="stylesheet" href="../assets/css/admin.css?v=<?= time(); ?>">
 </head>
 <body>
-  <?php include __DIR__ . '/header.php'; ?>
+  <?php include 'header.php'; ?>
 
   <div class="admin-dashboard">
     <?php include __DIR__ . '/sidebar.php'; ?>
@@ -24,7 +24,6 @@ $username = $_SESSION['username'] ?? 'Quản trị';
       <p>Chào mừng bạn đến với trang quản trị hệ thống WENZHU.</p>
     </main>
   </div>
-
   <?php include __DIR__ . '/footer.php'; ?>
 </body>
 </html>

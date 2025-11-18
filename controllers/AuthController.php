@@ -179,6 +179,78 @@ final class AuthController
         }
     }
 
+        /**
+     * Xử lý gửi email "Quên mật khẩu" cho tài khoản admin/staff
+     * Trả về [message, error]
+     */
+    public function handleAdminForgotPassword(): array
+    {
+        $identifier = trim((string)($_POST['identifier'] ?? ''));
+
+        if ($identifier === '') {
+            return [null, 'Vui lòng nhập email hoặc tên đăng nhập.'];
+        }
+
+        $db = $this->db();
+
+        // Xác định tìm theo email hay username
+        $useEmail = (strpos($identifier, '@') !== false);
+
+        $sql = $useEmail
+            ? "SELECT id, email, username FROM users WHERE email = ? AND role IN ('admin','staff') LIMIT 1"
+            : "SELECT id, email, username FROM users WHERE username = ? AND role IN ('admin','staff') LIMIT 1";
+
+        $stmt = $db->prepare($sql);
+        if (!$stmt) {
+            return [null, 'Lỗi hệ thống (prepare user).'];
+        }
+
+        $stmt->bind_param('s', $identifier);
+        $stmt->execute();
+        $res  = $stmt->get_result();
+        $user = $res ? $res->fetch_assoc() : null;
+        $stmt->close();
+
+        if ($user && !empty($user['email'])) {
+            $userId = (int)$user['id'];
+            $email  = (string)$user['email'];
+
+            // Tạo token mới (60 phút)
+            $token      = bin2hex(random_bytes(32));
+            $expiresAt  = (new \DateTimeImmutable('+60 minutes'))->format('Y-m-d H:i:s');
+
+            $ins = $db->prepare(
+                "INSERT INTO user_activation_tokens (user_id, token, expires_at) VALUES (?,?,?)"
+            );
+            if ($ins) {
+                $ins->bind_param('iss', $userId, $token, $expiresAt);
+                $ins->execute();
+                $ins->close();
+
+                // Tạo link tới trang đặt lại mật khẩu (tái sử dụng activate_staff.php)
+                $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? 'https' : 'http';
+                $host   = $_SERVER['HTTP_HOST'] ?? 'localhost';
+                $path   = rtrim(dirname($_SERVER['SCRIPT_NAME'] ?? ''), '/\\');
+                $link   = $scheme . '://' . $host . $path . '/activate_staff.php?token=' . urlencode($token);
+
+                $subject = 'Đặt lại mật khẩu tài khoản quản trị';
+                $body  = "Xin chào " . ($user['username'] ?? '') . ",\n\n";
+                $body .= "Bạn (hoặc ai đó) vừa yêu cầu đặt lại mật khẩu cho tài khoản quản trị tại website nhà hàng.\n";
+                $body .= "Nhấn vào liên kết sau để đặt lại mật khẩu (hiệu lực 60 phút):\n";
+                $body .= $link . "\n\n";
+                $body .= "Nếu bạn không yêu cầu, vui lòng bỏ qua email này.";
+                $headers = "Content-Type: text/plain; charset=UTF-8\r\n";
+
+                // Gửi email (nếu mail() lỗi, mình vẫn trả về thông báo chung để tránh lộ dữ liệu)
+                @mail($email, $subject, $body, $headers);
+            }
+        }
+
+        // Luôn trả về thông điệp chung, kể cả khi không tìm thấy user
+        $msg = 'Nếu email hoặc tên đăng nhập hợp lệ, hệ thống đã gửi hướng dẫn đặt lại mật khẩu. Vui lòng kiểm tra hộp thư của bạn.';
+        return [$msg, null];
+    }
+
     /* ===========================
        Helpers
        =========================== */
