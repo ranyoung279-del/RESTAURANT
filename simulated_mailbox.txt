@@ -1,0 +1,133 @@
+2025-11-17T18:11:06+00:00 | TO: hee@gmail.com | SUBJECT: Xác thực tài khoản khách hàng | SENT=mail()
+Xin chào hehe,
+
+Vui lòng nhấn vào liên kết sau để xác thực tài khoản: 
+http://localhost/verify_email.php?token=278e96e14776d063c72db1a4692aef23d74faa7e4c64837b955679077a5eea7b
+
+Liên kết hết hạn sau 24 giờ.
+2025-11-18T16:36:06+07:00 | TO: op@gmail.com | SUBJECT: Xác thực tài khoản khách hàng | SENT=mail()
+Xin chào op,
+
+Vui lòng nhấn vào liên kết sau để xác thực tài khoản: 
+http://localhost//RESTAURANT/verify_email.php?token=9c975428ed657d215f40e93479f2e4c3bb13890a1cde7a1b5735fc962065fded
+
+Liên kết hết hạn sau 24 giờ.
+-----------------------------
+2025-11-18T17:20:01+07:00 | TO: ranyoung279@gmail.com | SUBJECT: Yêu cầu đặt lại mật khẩu | SENT=mail()
+Nếu bạn vừa yêu cầu đặt lại mật khẩu, hãy truy cập: 
+http://localhost/Restaurant/reset_password.php?email=ranyoung279%40gmail.com&token=ddded42830524f0482923c7c854a963f
+
+Liên kết có hiệu lực 60 phút.
+-----------------------------
+2025-11-18T17:20:14+07:00 | TO: haha@gmail.com | SUBJECT: Yêu cầu đặt lại mật khẩu | SENT=mail()
+Nếu bạn vừa yêu cầu đặt lại mật khẩu, hãy truy cập: 
+http://localhost/Restaurant/reset_password.php?email=haha%40gmail.com&token=2d98be0a9ce3e9acef07949ab0e14469
+
+Liên kết có hiệu lực 60 phút.
+-----------------------------
+2025-11-18T17:31:37+07:00 | TO: ranyoung279@gmail.com | SUBJECT: Yêu cầu đặt lại mật khẩu | SENT=mail()
+Nếu bạn vừa yêu cầu đặt lại mật khẩu, hãy truy cập: 
+http://localhost/Restaurant/reset_password.php?email=ranyoung279%40gmail.com&token=c6b3094262fc3a287e20b234b16bd8a4
+
+Liên kết có hiệu lực 60 phút.
+-----------------------------
+2025-11-18T17:37:34+07:00 | TO: daemne@gmail.com | SUBJECT: Yêu cầu đặt lại mật khẩu Quản trị | SENT=mail()
+Nếu bạn vừa yêu cầu đặt lại mật khẩu Quản trị, hãy truy cập: 
+http://localhost/Restaurant/admin/reset_password_admin.php?email=daemne%40gmail.com&token=32d0019e4d4b9007e79ae6acf0381f89
+
+Liên kết có hiệu lực 60 phút.
+-----------------------------
+2025-11-18T17:41:41+07:00 | TO: daemne@gmail.com | SUBJECT: Yêu cầu đặt lại mật khẩu Quản trị | SENT=mail()
+Nếu bạn vừa yêu cầu đặt lại mật khẩu Quản trị, hãy truy cập: 
+http://localhost/Restaurant/admin/reset_password_admin.php?email=daemne%40gmail.com&token=ceecce663a4f7a35d666458c769a129d
+
+Liên kết có hiệu lực 60 phút.
+-----------------------------
+2025-11-18T18:02:56+07:00 | TO: thune@gmail.com | SUBJECT: Mời kích hoạt tài khoản nhân viên | SENT=mail()
+Xin chào hahaha,
+
+Bạn được mời tạo tài khoản quản trị. Vui lòng đặt mật khẩu tại liên kết (hiệu lực 24h):
+http://localhost/Restaurant/admin/activate_staff.php?token=7e8f44a300411dd56b98a666dc1c48d6a8e2e4849c4e589ddb9ca164da89bbab
+Nếu bạn không mong đợi email này, hãy bỏ qua.
+-----------------------------
+2025-11-18T18:05:05+07:00 | TO: thune@gmail.com | SUBJECT: Yêu cầu đặt lại mật khẩu Quản trị | SENT=mail()
+Nếu bạn vừa yêu cầu đặt lại mật khẩu Quản trị, hãy truy cập: 
+http://localhost/Restaurant/admin/reset_password_admin.php?email=thune%40gmail.com&token=82eb7ef8844513769f9c899e318f77f1
+
+Liên kết có hiệu lực 60 phút.
+-----------------------------
+2025-11-18T18:56:29+07:00 | TO: thune@gmail.com | SUBJECT: Yêu cầu đặt lại mật khẩu Quản trị | SENT=mail()
+Nếu bạn vừa yêu cầu đặt lại mật khẩu Quản trị, hãy truy cập: 
+http://localhost/Restaurant/admin/reset_password_admin.php?email=thune%40gmail.com&token=1d154af3f7206d86638dd7eca79b3581
+
+Liên kết có hiệu lực 60 phút.
+-----------------------------
+2025-11-18T19:32:14+07:00 | TO: thune@gmail.com | SUBJECT: Yêu cầu đặt lại mật khẩu Quản trị | SENT=mail()
+Nếu bạn vừa yêu cầu đặt lại mật khẩu Quản trị, hãy truy cập: 
+http://localhost/Restaurant/admin/reset_password_admin.php?email=thune%40gmail.com&token=1b4a6394b647ed1be01f3cfed4a09d32
+
+Liên kết có hiệu lực 60 phút.
+-----------------------------
+2025-11-18T20:06:19+07:00 | TO: hihi@gmail.com | SUBJECT: Xác thực tài khoản khách hàng | SENT=mail()
+Xin chào haha,
+
+Vui lòng nhấn vào liên kết sau để xác thực tài khoản: 
+http://localhost/Restaurant/verify_email.php?token=dc3f6e75a09b151818e3c598583ba632ca366629d216ae9063f4ebf1186827c6
+
+Liên kết hết hạn sau 24 giờ.
+-----------------------------
+2025-11-18T20:07:22+07:00 | TO: hihi@gmail.com | SUBJECT: Xác nhận đặt bàn #0 | SENT=mail()
+Xin chào haha
+Yêu cầu đặt bàn của bạn đã được ghi nhận. Mã xác nhận: A98EAFEF
+Thời gian: 2025-11-30 20:12:00
+Số người: 1
+Loại bàn: Bàn thường
+
+Vui lòng cung cấp mã này khi cần kiểm tra hoặc chỉnh sửa đặt bàn.
+-----------------------------
+2025-11-18T20:43:45+07:00 | TO: ranyoung279@gmail.com | SUBJECT: Xác thực tài khoản khách hàng | SENT=mail()
+Xin chào hehihi,
+
+Vui lòng nhấn vào liên kết sau để xác thực tài khoản: 
+http://localhost/Restaurant/verify_email.php?token=c6a19254054d7a84b60ffe42ebadc5d682fbe0c537ad49dffc82058a92252c4d
+
+Liên kết hết hạn sau 24 giờ.
+-----------------------------
+2025-11-18T21:07:05+07:00 | TO: ranyoung279@gmail.com | SUBJECT: Xác nhận đặt bàn #0 | SENT=mail()
+Xin chào hehihi
+Yêu cầu đặt bàn của bạn đã được ghi nhận. Mã xác nhận: E0B597E1
+Thời gian: 2025-11-22 21:10:00
+Số người: 1
+Loại bàn: Bàn thường
+
+Vui lòng cung cấp mã này khi cần kiểm tra hoặc chỉnh sửa đặt bàn.
+-----------------------------
+2025-11-18T21:24:14+07:00 | TO: hehe@gmail.com | SUBJECT: Xác thực tài khoản khách hàng | SENT=mail()
+Xin chào Nguyễn Thị Lan Anh,
+
+Vui lòng nhấn vào liên kết sau để xác thực tài khoản: 
+http://localhost/Restaurant/verify_email.php?token=3b2742478c64c2c5ac62f5dc63ff516a86c8a38d921ba20af4556635eac408df
+
+Liên kết hết hạn sau 24 giờ.
+-----------------------------
+2025-11-18T21:28:37+07:00 | TO: haha@gmail.com | SUBJECT: Mời kích hoạt tài khoản nhân viên | SENT=mail()
+Xin chào Anh nguyễn,
+
+Bạn được mời tạo tài khoản quản trị. Vui lòng đặt mật khẩu tại liên kết (hiệu lực 24h):
+http://localhost/Restaurant/admin/activate_staff.php?token=ae828b2018240355a2355b73ada64cdd3ea4c3a9475e15835dd75080741d95de
+Nếu bạn không mong đợi email này, hãy bỏ qua.
+-----------------------------
+2025-11-18T21:32:32+07:00 | TO: haha@gmail.com | SUBJECT: Yêu cầu đặt lại mật khẩu Quản trị | SENT=mail()
+Nếu bạn vừa yêu cầu đặt lại mật khẩu Quản trị, hãy truy cập: 
+http://localhost/Restaurant/admin/reset_password_admin.php?email=haha%40gmail.com&token=7afb23a1fb8c2c466ce6b5b5297fb779
+
+Liên kết có hiệu lực 60 phút.
+-----------------------------
+2025-11-18T21:42:12+07:00 | TO: hihi@gmail.com | SUBJECT: Xác thực tài khoản khách hàng | SENT=mail()
+Xin chào lan anh,
+
+Vui lòng nhấn vào liên kết sau để xác thực tài khoản: 
+http://localhost/Restaurant/verify_email.php?token=b220644b9ee1b1ded24b6efe73e1878f766b112babf8ddbc44fed2587d18f119
+
+Liên kết hết hạn sau 24 giờ.
+-----------------------------

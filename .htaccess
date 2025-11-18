@@ -1,0 +1,6 @@
+DirectoryIndex index.php registration.php login_cus.php menu.php
+Options -Indexes
+<IfModule mod_rewrite.c>
+RewriteEngine On
+# (Place future rewrites here if needed)
+</IfModule>
