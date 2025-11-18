@@ -56,3 +56,9 @@ http://localhost/Restaurant/admin/reset_password_admin.php?email=thune%40gmail.c
 
 Liên kết có hiệu lực 60 phút.
 -----------------------------
+2025-11-18T18:56:29+07:00 | TO: thune@gmail.com | SUBJECT: Yêu cầu đặt lại mật khẩu Quản trị | SENT=mail()
+Nếu bạn vừa yêu cầu đặt lại mật khẩu Quản trị, hãy truy cập: 
+http://localhost/Restaurant/admin/reset_password_admin.php?email=thune%40gmail.com&token=1d154af3f7206d86638dd7eca79b3581
+
+Liên kết có hiệu lực 60 phút.
+-----------------------------

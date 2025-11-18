@@ -38,7 +38,7 @@ if (($_POST['action'] ?? null) === 'register') {
         <p class="auth-success"><?= htmlspecialchars($_SESSION['success']); unset($_SESSION['success']); ?></p>
       <?php endif; ?>
 
-      <form method="post" action="customer_auth.php" autocomplete="off">
+      <form method="post" action="registration.php" autocomplete="off">
         <input type="hidden" name="action" value="register">
 
         <label>Họ tên:</label>
