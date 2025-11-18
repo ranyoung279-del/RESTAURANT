@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 18, 2025 lúc 12:54 PM
+-- Thời gian đã tạo: Th10 18, 2025 lúc 03:20 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.1.25
 
@@ -64,7 +64,7 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`id`, `full_name`, `email`, `phone`, `password_hash`, `created_at`, `email_verified_at`) VALUES
-(7, 'Nguyễn Thị Ngọc Ánh', 'ranyoung279@gmail.com', '09876543312', '$2y$10$PYDlMgdyBuU42LcNzzaCHOHMdfLUGMRuPKsKppaetKqFRMHNaG85K', '2025-10-24 03:07:14', NULL);
+(15, 'hehihi', 'ranyoung279@gmail.com', '0986645737', '$2y$10$9iImXYUBWFilhIH.c5z2nuS/ODtaQ2EE1AncwoEY73wvu4qJBqNLu', '2025-11-18 13:43:43', NULL);
 
 -- --------------------------------------------------------
 
@@ -88,7 +88,9 @@ INSERT INTO `customer_email_verification_tokens` (`id`, `customer_id`, `token`, 
 (1, 8, '6bd0b3089fcbcff412e7b669f63469f084b081b67d34966033b87fd01c6365be', '2025-11-19 08:52:26', '2025-11-18 14:52:50'),
 (2, 9, '749652657bccde588852bea14fed4d35101e6ce86805ac8009718c2cea9f93bf', '2025-11-19 09:17:17', '2025-11-18 15:17:29'),
 (3, 10, '868d84ec0a0f0d3e77b4f19fc6fc02df0d606cebe58774b5bc15a25e93175219', '2025-11-19 09:37:59', '2025-11-18 15:38:17'),
-(4, 11, 'a7b2a8797b8cb31d1a6cd43b2945f7050ebd3028986e85e97d636d664e17e94f', '2025-11-19 15:59:41', '2025-11-18 15:59:54');
+(4, 11, 'a7b2a8797b8cb31d1a6cd43b2945f7050ebd3028986e85e97d636d664e17e94f', '2025-11-19 15:59:41', '2025-11-18 15:59:54'),
+(5, 14, 'dc3f6e75a09b151818e3c598583ba632ca366629d216ae9063f4ebf1186827c6', '2025-11-19 20:06:17', '2025-11-18 20:06:41'),
+(6, 15, 'c6a19254054d7a84b60ffe42ebadc5d682fbe0c537ad49dffc82058a92252c4d', '2025-11-19 20:43:43', NULL);
 
 -- --------------------------------------------------------
 
@@ -110,7 +112,7 @@ CREATE TABLE `home_settings` (
 --
 
 INSERT INTO `home_settings` (`id`, `title`, `description`, `intro_images`, `banner_image`, `created_at`) VALUES
-(3, 'About us', 'Nhà hàng Madame Lân Đà Nẵng ra đời vào năm 2012 và là địa điểm được nhiều du khách lựa chọn để dừng chân trải nghiệm ẩm thực trọn vẹn bên bờ sông Hàn - trái tim của Đà Nẵng, nơi góc đường giao cắt giữa ba con phố Bạch Đằng, Trần Phú và Trần Quý Cáp. Được ấp ủ bởi những con người nó niềm đam mê và tình yêu cháy bỏng với ẩm thực Việt nên sứ mệnh của nhà hàng là tái hiện lại bầu không khí đầm ấm của những bữa ăn truyền thống trong không gian hài hòa với thiên nhiên.', '', 'uploads/home/1763389454_qu__n_q.jpg', '2025-05-30 10:04:02');
+(3, 'About us', 'Nhà hàng Wenzhu được thành lập vào năm 2012, bắt đầu từ mong muốn giản dị của gia đình sáng lập: tạo nên một nơi mà bất kỳ ai ghé đến Đà Nẵng cũng có thể tìm thấy một bữa ăn Việt Nam trọn vẹn, đúng vị và không cầu kỳ. Trước khi có Wenzhu, gia đình chỉ vận hành một quán ăn nhỏ trong khu dân cư, nơi những món cá kho, tô canh chua hay dĩa rau xào quen thuộc được nấu mỗi ngày bằng sự tận tâm và thói quen gìn giữ hương vị truyền thống. Quán nhỏ nhưng luôn đông khách bởi sự chân thật trong cách nấu và sự ấm áp trong cách tiếp đón. Chính những lời khen mộc mạc của người dân quanh vùng và những vị khách tình cờ ghé qua – “đúng vị quê nhà”, “ăn đơn giản mà ngon” – đã trở thành động lực để gia đình nghĩ đến việc xây dựng một không gian lớn hơn, chỉn chu hơn nhưng không đánh mất tinh thần ban đầu.\r\nSau nhiều năm gom góp kinh nghiệm lẫn tình yêu ẩm thực, Wenzhu ra đời tại số 42 Lê Bình, quận Hải Châu. Khu phố này không quá ồn ào, có nhiều bóng cây và nằm gần những tuyến đường trung tâm, tạo cảm giác yên bình đủ để thực khách dừng lại nghỉ ngơi sau một ngày dài khám phá thành phố biển. Nhà hàng được thiết kế theo phong cách nhẹ nhàng, ưu tiên sự thoáng đãng và tận dụng ánh sáng tự nhiên để mang đến cảm giác gần gũi như đang ngồi trong căn bếp của một gia đình Việt: đơn giản, sạch sẽ và ấm áp.\r\nTừ những ngày đầu, Wenzhu luôn đặt tiêu chí chân thật trong từng món ăn làm điều cốt lõi. Chúng tôi không chạy theo các món quá phức tạp hay trình bày cầu kỳ, mà chọn tập trung làm tốt những món Việt quen thuộc – những món ai cũng từng ăn qua nhưng không phải nơi nào cũng giữ được đúng tinh thần. Nguyên liệu mỗi ngày được chọn lựa cẩn thận từ chợ địa phương, từ rau xanh đến hải sản vùng biển, nhằm bảo đảm bữa ăn của khách luôn tươi, sạch và tròn vị nhất. Mỗi món dọn lên bàn đều mang trong đó sự chăm chút: không chỉ từ công thức nấu nướng mà còn từ thói quen tôn trọng hương vị tự nhiên vốn có của ẩm thực Việt.\r\nHơn mười năm trôi qua, Wenzhu đã trở thành điểm dừng quen thuộc của nhiều gia đình Đà Nẵng, của những nhóm bạn trẻ tìm không gian ấm áp, và cả những du khách muốn trải nghiệm bữa ăn Việt Nam đúng nghĩa. Chúng tôi không hướng đến sự hào nhoáng, mà mong muốn tạo nên cảm giác thoải mái: nơi bạn có thể ăn một bữa cơm ngon, trò chuyện cùng người thân, hoặc đơn giản là tìm một chút bình yên giữa nhịp sống bận rộn. Với chúng tôi, việc được đồng hành trong hành trình ẩm thực của bạn luôn là sự trân trọng lớn nhất.', 'uploads/home/1763475120_Thi___t_k____nh___h__ng_l___u_n___m_OKITA.jpg\nuploads/home/1763475120_13364__Download_Free_3D_Restaurant_Interior_Model_by_Minh_Hoang_Vu.jpg\nuploads/home/1763475120_13423__Download_Free_3D_Japanese_Restaurant_Interior_Model_by_Ngoc_Toan.jpg\nuploads/home/1763475120_t___i_xu___ng.jpg', 'uploads/home/1763475120_f4a35563aab68f485dde699495217c77.jpg', '2025-05-30 10:04:02');
 
 -- --------------------------------------------------------
 
@@ -191,7 +193,9 @@ INSERT INTO `password_resets` (`id`, `email`, `token`, `expires_at`, `used_at`) 
 (16, 'ranyoung279@gmail.com', 'c6b3094262fc3a287e20b234b16bd8a4', '2025-11-18 18:31:35', '2025-11-18 17:33:04'),
 (17, 'daemne@gmail.com', '32d0019e4d4b9007e79ae6acf0381f89', '2025-11-18 18:37:32', NULL),
 (18, 'daemne@gmail.com', 'ceecce663a4f7a35d666458c769a129d', '2025-11-18 18:41:39', NULL),
-(19, 'thune@gmail.com', '82eb7ef8844513769f9c899e318f77f1', '2025-11-18 19:05:03', '2025-11-18 18:05:34');
+(19, 'thune@gmail.com', '82eb7ef8844513769f9c899e318f77f1', '2025-11-18 19:05:03', '2025-11-18 18:05:34'),
+(20, 'thune@gmail.com', '1d154af3f7206d86638dd7eca79b3581', '2025-11-18 19:56:27', NULL),
+(21, 'thune@gmail.com', '1b4a6394b647ed1be01f3cfed4a09d32', '2025-11-18 20:32:12', NULL);
 
 -- --------------------------------------------------------
 
@@ -222,8 +226,8 @@ CREATE TABLE `promotions` (
 INSERT INTO `promotions` (`id`, `title`, `description`, `discount_type`, `discount_value`, `apply_to_menu_ids`, `apply_to_all`, `coupon_code`, `image_url`, `start_at`, `end_at`, `active`, `created_at`) VALUES
 (1, 'Giảm 30% cho mùa Giáng Sinh', 'Ưu đãi đặc biệt duy nhất hôm nay cho tất cả đơn hàng!', 'percent', 30.00, NULL, 1, 'MERRY30', 'uploads/promo1.jpg', NULL, '2025-12-31 23:59:00', 1, '2025-11-17 08:48:02'),
 (2, 'Giảm 50.000đ cho đơn từ 300.000đ', 'Áp dụng cho tất cả sản phẩm trong cửa hàng.', 'fixed', 50000.00, NULL, 1, 'SALE50K', 'uploads/promo2.jpg', '2025-12-10 00:00:00', '2025-12-31 23:59:59', 1, '2025-11-17 08:48:02'),
-(3, 'Ưu đãi 20% cho thành viên mới', 'Chào mừng bạn đến với cửa hàng của chúng tôi!', 'percent', 20.00, NULL, 0, 'WELCOME20', '', '2025-11-01 09:43:00', '2025-11-22 09:40:00', 1, '2025-11-17 08:48:02'),
-(4, 'Giảm 100.000đ đơn từ 500.000đ', 'Ưu đãi giới hạn, nhanh tay sử dụng!', 'fixed', 100000.00, NULL, 0, 'HOT100K', NULL, '2025-12-15 00:00:00', '2026-01-10 23:59:59', 1, '2025-11-17 08:48:02');
+(3, 'Ưu đãi 20% cho thành viên mới', 'Chào mừng bạn đến với cửa hàng của chúng tôi!', 'percent', 20.00, NULL, 1, 'WELCOME20', '', '2025-11-01 09:43:00', '2025-11-22 09:40:00', 1, '2025-11-17 08:48:02'),
+(4, 'Giảm 100.000đ đơn từ 500.000đ', 'Ưu đãi giới hạn, nhanh tay sử dụng!', 'fixed', 100000.00, NULL, 1, 'HOT100K', NULL, '2025-12-15 00:00:00', '2026-01-10 23:59:59', 1, '2025-11-17 08:48:02');
 
 -- --------------------------------------------------------
 
@@ -253,8 +257,10 @@ CREATE TABLE `reservations` (
 INSERT INTO `reservations` (`id`, `full_name`, `phone`, `reservation_date`, `people_count`, `note`, `status`, `confirmation_code`, `created_at`, `table_type`, `customer_id`, `confirmed_by`) VALUES
 (8, 'Nguyễn Thị Ngọc Ánh', '098765432', '2025-06-29 14:30:00', 4, '', 'confirmed', NULL, '2025-06-18 10:22:06', 'Bàn VIP', NULL, 8),
 (9, 'Ánh', '098765432', '2025-06-29 10:27:00', 4, '', 'confirmed', NULL, '2025-06-18 10:23:33', 'Bàn VIP', NULL, 8),
-(10, 'Nguyễn Thị Ngọc Ánh', '0898140163', '2025-10-31 18:49:00', 3, 'Chuẩn bị đúng giờ', 'pending', NULL, '2025-10-24 18:46:40', 'Bàn VIP', 7, NULL),
-(11, 'Nguyễn Thị Ngọc Ánh', '0987654321', '2025-10-31 02:44:00', 10, '', 'pending', NULL, '2025-10-25 10:40:03', 'Bàn thường', 7, NULL);
+(10, 'Nguyễn Thị Ngọc Ánh', '0898140163', '2025-10-31 18:49:00', 3, 'Chuẩn bị đúng giờ', 'confirmed', NULL, '2025-10-24 18:46:40', 'Bàn VIP', 7, NULL),
+(11, 'Nguyễn Thị Ngọc Ánh', '0987654321', '2025-10-31 02:44:00', 10, '', 'confirmed', NULL, '2025-10-25 10:40:03', 'Bàn thường', 7, NULL),
+(14, 'haha', '0987656789', '2025-11-30 20:12:00', 1, '', 'confirmed', 'A98EAFEF', '2025-11-18 20:07:20', 'Bàn thường', 14, NULL),
+(15, 'hehihi', '0986645737', '2025-11-22 21:10:00', 1, '', 'confirmed', 'E0B597E1', '2025-11-18 21:07:03', 'Bàn thường', 15, NULL);
 
 -- --------------------------------------------------------
 
@@ -392,13 +398,13 @@ ALTER TABLE `admin_invite_tokens`
 -- AUTO_INCREMENT cho bảng `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT cho bảng `customer_email_verification_tokens`
 --
 ALTER TABLE `customer_email_verification_tokens`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT cho bảng `home_settings`
@@ -416,7 +422,7 @@ ALTER TABLE `menu_items`
 -- AUTO_INCREMENT cho bảng `password_resets`
 --
 ALTER TABLE `password_resets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT cho bảng `promotions`
@@ -428,7 +434,7 @@ ALTER TABLE `promotions`
 -- AUTO_INCREMENT cho bảng `reservations`
 --
 ALTER TABLE `reservations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT cho bảng `settings`
