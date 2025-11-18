@@ -233,3 +233,7 @@ Tạo tài khoản người dùng gồm admin và nhân viên:
 •	Đơn đặt bàn ở trạng thái Pending cần admin hoặc nhân viên xác nhận
 •	Khuyến mãi chỉ áp dụng khi còn trong thời gian hiệu lực
 •	Thông tin nhà hàng cần được cập nhật đầy đủ để hiển thị đẹp trên trang chủ
+•	Tài khoản admin mẫu: admin
+Password: 1234
+
+
