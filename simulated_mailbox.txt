@@ -102,3 +102,32 @@ Loại bàn: Bàn thường
 
 Vui lòng cung cấp mã này khi cần kiểm tra hoặc chỉnh sửa đặt bàn.
 -----------------------------
+2025-11-18T21:24:14+07:00 | TO: hehe@gmail.com | SUBJECT: Xác thực tài khoản khách hàng | SENT=mail()
+Xin chào Nguyễn Thị Lan Anh,
+
+Vui lòng nhấn vào liên kết sau để xác thực tài khoản: 
+http://localhost/Restaurant/verify_email.php?token=3b2742478c64c2c5ac62f5dc63ff516a86c8a38d921ba20af4556635eac408df
+
+Liên kết hết hạn sau 24 giờ.
+-----------------------------
+2025-11-18T21:28:37+07:00 | TO: haha@gmail.com | SUBJECT: Mời kích hoạt tài khoản nhân viên | SENT=mail()
+Xin chào Anh nguyễn,
+
+Bạn được mời tạo tài khoản quản trị. Vui lòng đặt mật khẩu tại liên kết (hiệu lực 24h):
+http://localhost/Restaurant/admin/activate_staff.php?token=ae828b2018240355a2355b73ada64cdd3ea4c3a9475e15835dd75080741d95de
+Nếu bạn không mong đợi email này, hãy bỏ qua.
+-----------------------------
+2025-11-18T21:32:32+07:00 | TO: haha@gmail.com | SUBJECT: Yêu cầu đặt lại mật khẩu Quản trị | SENT=mail()
+Nếu bạn vừa yêu cầu đặt lại mật khẩu Quản trị, hãy truy cập: 
+http://localhost/Restaurant/admin/reset_password_admin.php?email=haha%40gmail.com&token=7afb23a1fb8c2c466ce6b5b5297fb779
+
+Liên kết có hiệu lực 60 phút.
+-----------------------------
+2025-11-18T21:42:12+07:00 | TO: hihi@gmail.com | SUBJECT: Xác thực tài khoản khách hàng | SENT=mail()
+Xin chào lan anh,
+
+Vui lòng nhấn vào liên kết sau để xác thực tài khoản: 
+http://localhost/Restaurant/verify_email.php?token=b220644b9ee1b1ded24b6efe73e1878f766b112babf8ddbc44fed2587d18f119
+
+Liên kết hết hạn sau 24 giờ.
+-----------------------------
